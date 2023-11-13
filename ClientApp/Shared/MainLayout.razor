@@ -1,0 +1,121 @@
+﻿@* @layout TelerikLayout *@
+@inherits LayoutComponentBase
+
+@* <div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+ *@
+
+<div class="container">
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary"
+         aria-label="Iranian-Canadian Pie Shop navigation header">
+      <div class="container-xl">
+        <a class="navbar-brand" href="/">
+          <img src="images/logo.jpg" width="110" height="80" class="d-inline-block align-top"
+               alt="Iranian-Canadian Pie Shop Logo">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <input id="itemsCount" type="hidden" value=@Count />
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a href="/contact" class="nav-link">Contact</a>
+            </li>
+
+            <li class="nav-item">
+@*               @if (User.Identity != null && User.Identity.IsAuthenticated && !User.IsInRole("Customer"))
+              {
+                <a class="nav-link" asp-page="/App/Index" asp-route-route="employeeslist">Members</a>
+              }
+ *@
+              <a class="nav-link" href="/employeeslist">Members</a>
+            </li>
+
+            <li class="nav-item">
+              <partial name="_LoginPartial" />
+            </li>
+
+            <li class="nav-item">
+              @if (Count > 0)
+              {
+                <ShoppingCartSummary Count="Count" />
+              }
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <main role="main" class="pb-3">
+@*     <div>
+      @RenderSection("MiddleView", required: false)
+    </div>
+ *@
+    @Body
+
+    <hr />
+
+    <footer>
+      <p>&copy; 2023 - Iranian Canadian Pie Shop</p>
+    </footer>
+  </main>
+
+  @* @RenderSection("Scripts", required: false) *@
+</div>
+
+@code
+{
+  @using ClientApp.Helpers
+  @using Microsoft.AspNetCore.Components.Authorization;
+  @using System.Security.Claims;
+
+  @inject GlobalItems globalItems;
+
+  [CascadingParameter]
+  private Task<AuthenticationState>? AuthenticationState { get; set; }
+
+  public int Count { get; set; }
+  
+  protected override async Task OnInitializedAsync()
+  {
+    ClaimsPrincipal? user = null;
+
+    if (AuthenticationState is not null)
+    {
+      var authenticationState = await AuthenticationState;
+
+      user = authenticationState.User;
+    }
+
+    Count = 0;
+    //if (user != null && globalItems != null)
+    if (globalItems != null)
+      {
+      var items = await globalItems?.ShoppingCartItems(user);
+
+      Count = items.Count;
+    }
+  }
+}

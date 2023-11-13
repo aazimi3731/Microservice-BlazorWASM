@@ -1,0 +1,68 @@
+﻿@page "/employeeslist"
+
+<h1 class="page-title mt-2">All employees</h1>
+
+@if (Employees == null || !Employees.Any())
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  @if (IsAuthorized)
+  {
+    <div class="d-flex justify-content-start mt-2 mb-2">
+      <a href="@($"/employeeedit")" class="btn btn-outline-dark">
+        Add New Employee
+      </a>
+    </div>
+  }
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Employee ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var employee in Employees)
+      {
+        <tr class="employees-list-row">
+          <td><img src="@($"{Url}/Images/{employee?.FirstName}.jpg")" class="img-responsive rounded-circle employees-list-img" /></td>
+          <td>@employee?.EmployeeId</td>
+          <td>@employee?.FirstName</td>
+          <td>@employee?.LastName</td>
+          <td>
+            <a href="@($"/employeedetail/{employee?.EmployeeId}")" class="btn btn-info table-btn">
+              Detail
+              @*<i class="fas fa-info-circle"></i>*@
+            </a>
+          </td>
+          @if (IsAuthorized)
+          {
+            <td>
+              <a href="@($"/employeeedit/{employee?.EmployeeId}")" class="btn btn-primary table-btn">
+                Edit
+                @*<i class="fas fa-edit"></i>*@
+              </a>
+            </td>
+            <td>
+              <a class="btn btn-danger table-btn w-auto" @onclick="@(() => DeleteEmployee(employee.EmployeeId))">
+                Delete
+              </a>
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (IsAuthorized)
+  {
+    <button @onclick="QuickAddEmployee" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+    <AddEmployeeDialog @ref="AddEmployeeDialog" CloseEventCallback="@AddEmployeeDialog_OnDialogClose"></AddEmployeeDialog>
+  }
+}

@@ -1,0 +1,12 @@
+﻿@page "/pies/{CategoryName?}"
+
+<SecondRibbon IsShown="true" />
+
+<h1 class="mt-2">@CurrentCategory</h1>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  @foreach (var pie in Pies)
+  {
+    <PieCard Pie="pie" />
+  }
+</div>

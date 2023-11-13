@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+option csharp_namespace = "MicroServices.Grpc";
+import "google/protobuf/timestamp.proto";
+//import "google/api/http.proto";
+//import "google/api/annotations.proto";
+
+package shoppingCart;
+
+service ShoppingCartItems {
+  rpc CreateCart (CreateCartRequest) returns (CreateCartResponse);
+  //{
+  //  option (google.api.http) = {
+    //  post: "/v1/ShoppingCart/CreateCart"
+    //};
+  //}
+  rpc GetCart (GetCartRequest) returns (GetCartResponse);
+  //{
+    //option (google.api.http) = {
+      //post: "/v1/ShoppingCart/GetCart"
+    //};
+  //}
+  rpc AddToCart (AddToCartRequest) returns (AddToCartResponse);
+  //{
+    //option (google.api.http) = {
+      //post: "/v1/ShoppingCart/AddToCart"
+    //};
+  //}
+  rpc UpdateCartItem (UpdateCartItemRequest) returns (UpdateCartItemResponse);
+  //{
+//      option (google.api.http) = {
+  //    delete: "/v1/ShoppingCart/UpdateCartItem"
+    //};
+  //}
+  rpc OrderedItems (OrderedItemsRequest) returns (OrderedItemsResponse);
+  //{
+      //option (google.api.http) = {
+      //delete: "/v1/ShoppingCart/OrderedItems"
+    //};
+  //}
+  rpc RemoveItems (RemoveItemsRequest) returns (RemoveItemsResponse);
+  //{
+    //option (google.api.http) = {
+      //delete: "/v1/ShoppingCart/RemoveItems"
+    //};
+  //}
+  rpc GetCartItemsByCartID (GetCartItemsByCartIDRequest) returns (GetCartItemseByCartIDResponse);
+  //{
+//      option (google.api.http) = {
+  //    get: "/v1/ShoppingCart/GetCartItemsByCartID"
+    //};
+  //}
+}
+
+message CreateCartRequest {
+  ShoppingCart ShoppingCart = 1;
+}
+
+message CreateCartResponse {
+  bool IsSuccess = 1;
+}
+
+message GetCartRequest {
+  string UserId = 1;
+}
+
+message GetCartResponse {
+  bool IsSuccess = 1;
+  ShoppingCart ShoppingCart = 2;
+}
+
+message AddToCartRequest {
+  ShoppingCartItem ShoppingCartItem = 1;
+}
+
+message AddToCartResponse {
+  bool IsSuccess = 1;
+}
+
+message UpdateCartItemRequest {
+  string ShoppingCartId = 1;
+  int32 PieId = 2;
+  int32 Amount = 3;
+}
+
+message UpdateCartItemResponse {
+  bool IsSuccess = 1;
+  int32 Amount = 2;
+}
+
+message OrderedItemsRequest {
+  string ShoppingCartId = 1;
+}
+
+message OrderedItemsResponse {
+  bool IsSuccess = 1;
+}
+
+message RemoveItemsRequest {
+  string ShoppingCartId = 1;
+  int32 PieId = 2;
+}
+
+message RemoveItemsResponse {
+  bool IsSuccess = 1;
+}
+
+message GetCartItemsByCartIDRequest {
+  string ShoppingCartId = 1;
+}
+
+message GetCartItemseByCartIDResponse {
+  bool IsSuccess = 1;
+  repeated ShoppingCartItem ShoppingCartItems = 2;
+}
+
+message ShoppingCart {
+  string ShoppingCartId = 1;
+  string UserId = 2;
+}
+
+message ShoppingCartItem {
+  int32 ShoppingCartItemId = 1;
+  int32 PieId = 2;
+  int32 Amount = 3;
+  double price = 4;
+  string ShoppingCartId = 5;
+  bool IsOrdered = 6;
+}

@@ -1,0 +1,35 @@
+﻿<EditForm Model="@ShoppingCartItem" OnValidSubmit="@UpdateShoppingCart">
+  <div class="row">
+    <div class="col-lg-9 col-sm-12">
+      <div class="d-flex justify-content-between">
+        <div class="form-group">
+          <label for="amount">Quantity: </label>
+          <InputSelect id="amount" @bind-Value="@Amount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </InputSelect>
+          <input asp-for="@ShoppingCartItem.PieId" type="hidden" />
+          <input asp-for="@ShoppingCartItem.Price" type="hidden" />
+        </div>
+@*         <TelerikButton ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" class="me-1 ms-lg-5 me-lg-auto">
+          Update cart
+        </TelerikButton>
+ *@
+        <button type="submit" class="btn btn-secondary me-1 ms-lg-5 me-lg-auto">Update cart</button>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-12 d-flex justify-content-end">
+      <a class="btn btn-danger me-1" onclick="@RemoveShoppingCart">
+        <img class="cancelIcon" src="/images/times.svg" />
+      </a>
+    </div>
+  </div>
+</EditForm>

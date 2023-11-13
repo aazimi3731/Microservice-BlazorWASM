@@ -1,0 +1,66 @@
+﻿@page "/"
+
+<SecondRibbon IsShown="true" />
+
+<Carousel />
+
+@if (PiesOfTheWeek != null && PiesOfTheWeek.Any())
+{
+  <div class="text-center">
+    <img src="Images/logomark.png" class="logo-mark mx-auto" />
+
+    <h1>Pies of the week</h1>
+    <h5>Enjoy a weekly selection of our favorite pies</h5>
+
+    <div class="pies-of-the-week">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var pie in PiesOfTheWeek)
+        {
+          <div class="col">
+            <div class="card pie-card">
+              <img src="@pie.ImageThumbnailUrl" class="card-img-top" alt="@pie.Name">
+              <div class="card-body pie-button">
+                <div class="addToCart">
+                  <AddToCartForm Pie="pie" />
+                </div>
+
+                <div class="d-flex justify-content-between mt-2">
+                  <h4 class="text-start">
+                    <a href=@($"/pie/{@pie.PieId}") class="pie-link">
+                      @pie.Name
+                    </a>
+                  </h4>
+                  <h5 class="text-nowrap">
+                    @pie.Price.ToString("c")
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+    </div>
+  </div>
+}
+
+<SurveyPrompt Title="How is Iranian-Canadian Pie Shop for you?" />
+
+@code
+{
+  @inject IShoppingCartItemService shoppingCartItemService
+  @inject IProductService productService
+
+  public IEnumerable<PieDto>? PiesOfTheWeek { get; set; }
+
+  public IEnumerable<ShoppingCartItemDto>? ShoppingCartItems { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    var pies = await productService.PiesOfTheWeek();
+
+    PiesOfTheWeek = pies.OrderBy(p => p.PieId).ToList();
+
+    ShoppingCartItems = await shoppingCartItemService.GetShoppingCartItems();
+  }
+}

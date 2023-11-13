@@ -1,0 +1,28 @@
+﻿@if (CategoriesList != null && CategoriesList.Any())
+{
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle"
+       data-toggle="dropdown"
+       href="#"
+       role="button"
+       data-bs-toggle="dropdown"
+       id="nav-dropdown"
+       aria-expanded="false">
+      Shop
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-dropdown">
+      @foreach (var category in CategoriesList)
+      {
+        <li>
+          <a href=@($"/pies/{@category.CategoryName}")
+             class="dropdown-item">
+            @category.CategoryName
+          </a>
+        </li>
+      }
+      <li>
+        <a href="/pies" class="dropdown-item">All pies</a>
+      </li>
+    </ul>
+  </li>
+}

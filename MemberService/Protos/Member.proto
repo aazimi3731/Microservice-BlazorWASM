@@ -1,0 +1,194 @@
+syntax = "proto3";
+
+option csharp_namespace = "MicroServices.Grpc";
+import "google/protobuf/timestamp.proto";
+//import "google/api/http.proto";
+//import "google/api/annotations.proto";
+
+package member;
+
+service Members {
+  rpc AllEmployees (AllEmployeesRequest) returns (AllEmployeesResponse);
+  //{
+//    option (google.api.http) = {
+ //     get: "/v1/Employees"
+  //  };
+  //}
+
+  rpc GetEmployee (GetEmployeeRequest) returns (GetEmployeeResponse);
+  //{
+    //option (google.api.http) = {
+     // get: "/v1/Employees/Employee"
+   // };
+  //}
+
+  rpc CreateEmployee (CreateEmployeeRequest) returns (CreateEmployeeResponse);
+  //{
+    //option (google.api.http) = {
+     // post: "/v1/Employees/Create"
+     // body: "*"
+    //};
+  //}
+
+  rpc UpdateEmployee (UpdateEmployeeRequest) returns (UpdateEmployeeResponse);
+  //{
+    //option (google.api.http) = {
+     // post: "/v1/Employees/Update"
+     // body: "*"
+    //};
+  //}
+
+  rpc DeleteEmployee (DeleteEmployeeRequest) returns (DeleteEmployeeResponse);
+  //{
+    //option (google.api.http) = {
+     // post: "/v1/Employees/Delete"
+     // body: "*"
+    //};
+  //}
+
+  rpc AllCountries (AllCountriesRequest) returns (AllCountriesResponse);
+  //{
+   // option (google.api.http) = {
+    //  get: "/v1/Countries"
+   // };
+ // }
+
+  rpc GetCountry (GetCountryRequest) returns (GetCountryResponse);
+  //{
+   // option (google.api.http) = {
+    //  get: "/v1/Countries/GetCountry"
+   // };
+  //}
+
+  rpc AllJobCategories (AllJobCategoriesRequest) returns (AllJobCategoriesResponse);
+  //{
+    //option (google.api.http) = {
+    //  get: "/v1/JobCategories"
+   // };
+  //}
+
+  rpc GetJobCategory (GetJobCategoryRequest) returns (GetJobCategoryResponse);
+  //{
+   // option (google.api.http) = {
+   //   get: "/v1/JobCategories/GetJobCategory"
+   // };
+  //}
+}
+
+message AllEmployeesRequest {}
+
+message AllEmployeesResponse {
+  bool IsSuccess = 1;
+  repeated Employee Employees = 2;
+}
+
+message GetEmployeeRequest {
+  int32 EmployeeId = 2;
+}
+
+message GetEmployeeResponse {
+  bool IsSuccess = 1;
+  Employee Employee = 2;
+}
+
+message CreateEmployeeRequest {
+  Employee Employee = 1;
+}
+
+message CreateEmployeeResponse {
+  bool IsSuccess = 1;
+}
+
+message UpdateEmployeeRequest {
+  Employee Employee = 1;
+}
+
+message UpdateEmployeeResponse {
+  bool IsSuccess = 1;
+}
+
+message DeleteEmployeeRequest {
+  int32 EmployeeId = 1;
+}
+
+message DeleteEmployeeResponse {
+  bool IsSuccess = 1;
+}
+
+message AllCountriesRequest {}
+
+message AllCountriesResponse {
+  bool IsSuccess = 1;
+  repeated Country Countries = 2;
+}
+
+message GetCountryRequest {
+  int32 CountryId = 2;
+}
+
+message GetCountryResponse {
+  bool IsSuccess = 1;
+  Country Country = 2;
+}
+
+message AllJobCategoriesRequest {}
+
+message AllJobCategoriesResponse {
+  bool IsSuccess = 1;
+  repeated JobCategory JobCategories = 2;
+}
+
+message GetJobCategoryRequest {
+  int32 JobCategoryId = 2;
+}
+
+message GetJobCategoryResponse {
+  bool IsSuccess = 1;
+  JobCategory JobCategory = 2;
+}
+
+message Employee {
+  int32 EmployeeId = 1;
+  string FirstName = 2;
+  string LastName = 3;
+  google.protobuf.Timestamp BirthDate = 4;
+  string Email = 5;
+  string Street = 6;
+  string Zip = 7;
+  string City = 8;
+  int32 CountryId = 9;
+  Country Country = 10;
+  string PhoneNumber = 11;
+  bool Smoker = 12;
+  MaritalStatus MaritalStatus = 13;
+  Gender Gender = 14;
+  string Comment = 15;
+  google.protobuf.Timestamp JoinedDate = 16;
+  google.protobuf.Timestamp ExitDate = 17;
+  int32 JobCategoryId = 18;
+  JobCategory JobCategory = 19;
+  double Latitude = 20;
+  double Longitude = 21;
+}
+
+message Country {
+  int32 CountryId = 1;
+  string Name = 2;
+}
+
+message JobCategory {
+  int32 JobCategoryId = 1;
+  string Name = 2;
+}
+
+enum Gender {
+  Male = 0;
+  Female = 1;
+  GENDER_OTHER = 2;
+}
+
+enum MaritalStatus {
+  Married = 0;
+  Single = 1;
+  MARITAL_STATUS_OTHER = 2;
+}

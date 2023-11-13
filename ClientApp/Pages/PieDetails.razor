@@ -1,0 +1,19 @@
+﻿@page "/pie/{PieId}"
+
+<SecondRibbon IsShown="false" />
+
+<h3 class="my-5">
+  @Pie.Name
+</h3>
+
+<div class="row gx-5">
+  <img alt="@Pie.Name" src="@Pie.ImageUrl" class="col-lg-6 col-xl-5" />
+  <div class="col-lg-6 col-xl-7">
+    <h4>@Pie.ShortDescription</h4>
+    <p>@Pie.LongDescription</p>
+    <h3 class="pull-right">@Pie.Price.ToString("c")</h3>
+    <div class="addToCart">
+      <AddToCartForm Pie="@Pie" />
+    </div>
+  </div>
+</div>

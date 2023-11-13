@@ -1,0 +1,23 @@
+﻿<div class="col col-md-6 col-lg-4">
+  <div class="card pie-card">
+    <img src="@Pie?.ImageThumbnailUrl" class="card-img-top" alt="@Pie?.Name">
+    <div class="card-body pie-button">
+      <div class="addToCart">
+        <AddToCartForm Pie="@Pie" />
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <h4 class="text-start">
+          <a class="pie-link" href=@($"/pie/{@Pie?.PieId}")>@Pie?.Name</a>
+        </h4>
+        <h5 class="text-nowrap">
+          @Pie?.Price.ToString("c")
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code{
+  [Parameter]
+  public PieDto? Pie { get; set; }
+}

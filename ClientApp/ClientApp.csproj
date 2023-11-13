@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.EnumMapping" Version="3.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.16.1" />
+    <PackageReference Include="Blazored.SessionStorage" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Google.Protobuf" Version="3.24.3" />
+    <PackageReference Include="Grpc.Net.Client.Web" Version="2.55.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.55.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.55.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.10" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MapService\MapService.csproj" />
+    <ProjectReference Include="..\SharedModels\SharedModels.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\Order.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\ShoppingCart.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\Member.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+</Project>

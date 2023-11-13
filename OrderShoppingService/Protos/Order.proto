@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option csharp_namespace = "MicroServices.Grpc";
+import "google/protobuf/timestamp.proto";
+//import "google/api/http.proto";
+//import "google/api/annotations.proto";
+
+package order;
+
+service Orders {
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+  //{
+    //option (google.api.http) = {
+     // post: "/v1/CreateOrder"
+     // body: "*"
+    //};
+  //}
+}
+
+message CreateOrderRequest {
+  Order Order = 1;
+  string ShoppingCartId = 2;
+}
+
+message CreateOrderResponse {
+  bool IsSuccess = 1;
+}
+
+message Order {
+  int32 OrderId = 1;
+  repeated OrderDetail OrderDetails = 2;
+  string FirstName = 3;
+  string LastName = 4;
+  string AddressLine1 = 5;
+  string AddressLine2 = 6;
+  string ZipCode = 7;
+  string City = 8;
+  string State = 9;
+  string Country = 10;
+  string PhoneNumber = 11;
+  string Email = 12;
+  double OrderTotal = 13;
+  google.protobuf.Timestamp OrderPlaced = 14;
+}
+
+message OrderDetail {
+  int32 OrderDetailId = 1;
+  int32 OrderId = 2;
+  int32 PieId = 3;
+  int32 Amount = 4;
+  double Price = 5;
+}
